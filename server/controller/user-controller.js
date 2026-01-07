@@ -23,7 +23,7 @@ export const userSignup = async (request, response) => {
 
         if (exist) {
             return response.status(409).json({
-                message: "User already exists"
+                message: "User already exists. Please use a different email." // Clear error message
             });
         }
 

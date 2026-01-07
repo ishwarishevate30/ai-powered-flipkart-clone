@@ -108,17 +108,36 @@ const LoginDialog = ({ open, setOpen }) => {
   };
 
   const onInputChange = (e) => {
-    setSignup({ ...signup, [e.target.name]: e.target.value });
+    const updatedSignup = { ...signup, [e.target.name]: e.target.value };
+    console.log("Updated signup object:", updatedSignup); // Debugging log
+    setSignup(updatedSignup);
   };
 
   const signupUser = async () => {
     try {
       console.log("SIGNUP DATA:", signup);
+
+      // Validate input fields
+      const { firstname, lastname, username, email, password, phone } = signup;
+      if (!firstname || !lastname || !username || !email || !password || !phone) {
+        console.log("Validation failed: All fields are required.");
+        return;
+      }
+
       const response = await authenticateSignup(signup);
-      console.log(response.data);
-      handleClose();
+      if (response && response.data) {
+        console.log(response.data);
+        handleClose();
+      } else {
+        console.log("Signup failed: No response data.");
+      }
     } catch (error) {
-      console.log("Signup error:", error);
+      if (error.response && error.response.status === 409) {
+        console.log("Signup failed: User already exists.");
+        alert("User already exists. Please use a different email."); // User-friendly message
+      } else {
+        console.log("Signup error:", error);
+      }
     }
   };
 
