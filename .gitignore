@@ -3,6 +3,7 @@ node_modules/
 
 # Environment variables
 client/.env
+server/.env
 
 # Logs
 logs/
