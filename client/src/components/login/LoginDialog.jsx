@@ -136,13 +136,18 @@ const LoginDialog = ({ open, setOpen }) => {
     try {
       const response = await authenticateLogin(login);
       console.log("Login API Response:", response.data); // Debugging log 
-      setAccount({
-        firstname: response.data.firstname,
-        email: response.data.email,
-      });
-      handleClose();
+      
+      if(response.status === 200){
+        setAccount({
+          firstname: response.data.firstname,
+          email: response.data.email,
+        });
+        alert("Logged in successfully");
+        handleClose();
+      }
     } catch (error) {
-      alert("Login failed");
+      console.error("Login error:", error);
+      alert("Please enter valid username or password");
     }
   };
 
