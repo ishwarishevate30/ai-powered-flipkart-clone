@@ -19,7 +19,7 @@ export const userSignup = async (request, response) => {
             });
         }
 
-        const exist = await User.findOne({ email });
+        const exist = await User.findOne({ email }).exec();
 
         if (exist) {
             return response.status(409).json({
@@ -66,7 +66,7 @@ export const userLogin = async (request, response) => {
             });
         }
 
-        const user = await User.findOne({ email, password });
+        const user = await User.findOne({ email, password }).exec();
 
         if (!user) {
             return response.status(401).json({

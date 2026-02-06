@@ -13,17 +13,17 @@ const Banner = () => (
     responsive={responsive}
     infinite={true}
     autoPlay={true}
-    autoPlaySpeed={2500}
+    autoPlaySpeed={1500}
     swipeable={false}
     draggable={false}
-    arrows
+    arrows={false}
   >
-    {bannerData.map((url, index) => (
+    {bannerData && bannerData.length > 0 && bannerData.map((url, index) => (
       <img
         key={index}
         src={url}
         alt={`banner-${index}`}
-        style={{ width: "100%", height: "250px",objectFit: "cover" }}
+        style={{ width: "100%", height: "250px", objectFit: "cover" }}
       />
     ))}
   </Carousel>
