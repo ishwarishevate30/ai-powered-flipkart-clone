@@ -1,67 +1,125 @@
 import { useState, useContext } from "react";
-import { Box, Button, Typography, styled } from "@mui/material";
+import { Box, Button, Typography, styled, Badge } from "@mui/material";
 import { ShoppingCart } from "@mui/icons-material";
+import { Link } from "react-router-dom";
 
 import LoginDialog from "../login/LoginDialog";
-import { DataContext } from "../../context/DataProvider";
 import Profile from "./Profile";
-const Wrapper = styled(Box)`
-  display: flex;
-  margin: 0 3% 0 auto;
-  align-items: center; /* Center vertically */
-  position: relative;
-  top: 0px; /* Adjusted position to align with the cart */
+import { DataContext } from "../../context/DataProvider";
 
-  & > button,
-  & > p,
-  & > div {
-    margin-right: 40px;
-    font-size: 16px;
-    align-items: center;
+
+// ================= Wrapper =================
+
+const Wrapper = styled(Box)(({ theme }) => ({
+  display: "flex",
+  alignItems: "center",
+  marginLeft: "auto",
+  gap: 35,
+
+  // Drawer / Mobile View
+  [theme.breakpoints.down("md")]: {
+    flexDirection: "column",
+    alignItems: "flex-start",
+    gap: 20,
+    padding: "20px",
+    margin: 0
   }
-`;
+}));
 
-const Container = styled(Box)`
-  display: flex;
-`;
 
-const LoginButton = styled(Button)`
-  background: ${(props) => (props.firstname ? "#2874f0" : "#ffffff")};
-  color: ${(props) => (props.firstname ? "#ffffff" : "#2874f0")};
-  border-radius: 2px;
-  text-transform: none;
-  padding: 5px 40px;
-  box-shadow: none;
-  font-weight: 600;
-  height: 32px;
-`;
+// ================= Login Button =================
+
+const LoginButton = styled(Button)(({ theme }) => ({
+  color: "#2874f0",
+  background: "#ffffff",
+  textTransform: "none",
+  fontWeight: 600,
+  borderRadius: 2,
+  padding: "5px 40px",
+  height: 32,
+  boxShadow: "none",
+
+  "&:hover": {
+    background: "#ffffff"
+  },
+
+  [theme.breakpoints.down("md")]: {
+    width: "100%",
+    justifyContent: "flex-start"
+  }
+}));
+
+
+// ================= Cart =================
+
+const CartContainer = styled(Link)(({ theme }) => ({
+  display: "flex",
+  alignItems: "center",
+  textDecoration: "none",
+  color: "inherit",
+  gap: 8,
+
+  [theme.breakpoints.down("md")]: {
+    width: "100%"
+  }
+}));
+
+
+// ================= Component =================
 
 const CustomButton = () => {
   const [open, setOpen] = useState(false);
-  const { account } = useContext(DataContext);
+  const { account, setAccount } = useContext(DataContext);
+
+  const cartItems = []; // Replace with real cart data later
+
+  const openDialog = () => {
+    setOpen(true);
+  };
 
   return (
-
     <Wrapper>
-        {
-            account ? <Profile  account ={account} /> :
-        
-      <LoginButton
-        firstname={account && account.firstname}
-        onClick={() => setOpen(true)}
+      {/* Login / Profile */}
+      {account ? (
+        <Profile account={account} setAccount={setAccount} />
+      ) : (
+        <LoginButton variant="contained" onClick={openDialog}>
+          Login
+        </LoginButton>
+      )}
+
+      {/* Become Seller */}
+      <Typography
+        sx={{
+          fontSize: 16,
+          cursor: "pointer"
+        }}
       >
-        {account && account.firstname ? account.firstname : "Login"}
-      </LoginButton>
-}
-      <Typography>Become a Seller</Typography>
-      <Typography>More</Typography>
+        Become a Seller
+      </Typography>
 
-      <Container>
-        <ShoppingCart />
-        <Typography>Cart</Typography>
-      </Container>
+      {/* More */}
+      <Typography
+        sx={{
+          fontSize: 16,
+          cursor: "pointer"
+        }}
+      >
+        More
+      </Typography>
 
-      <LoginDialog open={open} setOpen={setOpen} />
+      {/* Cart */}
+      <CartContainer to="/cart">
+        <Badge badgeContent={cartItems.length} color="secondary">
+          <ShoppingCart />
+        </Badge>
+        <Typography sx={{ fontSize: 16 }}>
+          Cart
+        </Typography>
+      </CartContainer>
+
+      {/* Login Dialog */}
+      <LoginDialog open={open} setOpen={setOpen} setAccount={setAccount} />
     </Wrapper>
   );
 };

@@ -5,9 +5,8 @@ import {FlashOn as Flash} from '@mui/icons-material';
 const LeftContainer = styled(Box)(({ theme }) => ({
     minWidth: '40%',
     padding: '40px 0 0 80px',
-    [theme.breakpoints.down('md')]: {
-        minWidth: '100%',
-        padding: '20px'
+    [theme.breakpoints.down('lg')]: {
+        padding: '20px 40px'
     }
 }));
 
@@ -26,11 +25,21 @@ const Image = styled('img')({
     objectFit: 'contain'
 });
 
-const StyledButton = styled(Button)`
-    width:48%;
-    height:50px;
-    border-radius:2px;
-`;
+const StyledButton = styled(Button)(({ theme }) => ({
+    width: '48%',
+    height: '50px',
+    borderRadius: '2px',
+    [theme.breakpoints.down('lg')]: {
+        width: '46%',
+        marginBottom: '10px'
+    },
+        [theme.breakpoints.down('sm')]: {
+        width: '48%',
+        marginBottom: '10px'
+    }
+
+
+}));
 
 const ActionItem = ({ product }) => {
     return (
