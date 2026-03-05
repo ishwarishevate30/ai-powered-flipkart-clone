@@ -56,9 +56,11 @@ const Text = styled(Typography)`
 const Slide = ({ products, title, timer }) => { // Destructured products, title, and timer from props
   const timerURL = "https://static-assets-web.flixcart.com/www/linchpin/fk-cp-zion/img/timer_a73398.svg";
   console.log('Products data:', products); // Debugging log to check the products data in the Slide component
+
   if (!products || !Array.isArray(products) || products.length === 0) {
     return <div>No products available</div>; // Fallback UI for undefined or empty products
   }
+
   return (
     <Component>
       <Deal>
@@ -95,9 +97,9 @@ const Slide = ({ products, title, timer }) => { // Destructured products, title,
         <Link to = {`/product/${product.id}`} style={{ textDecoration: 'none' }} key={product.id}>
         <Box key={product.id} textAlign="center" style={{ padding: '25px 15px' }}>
           <Image src={product.url} alt="product" />
-          <Text style={{ fontWeight: 600, marginTop: 10 }}>{product.title.shortTitle}</Text>
-          <Text style={{ color: 'green', fontWeight: 600 }}>{product.discount}</Text>
-          <Text style={{ color: '#7f7f7f', fontSize: 12 }}>{product.tagline}</Text>
+          <Text style={{ fontWeight: 600, marginTop: 10 }}>{product?.title?.shortTitle || 'No Title'}</Text>
+          <Text style={{ color: 'green', fontWeight: 600 }}>{product?.discount || 'No Discount'}</Text>
+          <Text style={{ color: '#7f7f7f', fontSize: 12 }}>{product?.tagline || 'No Tagline'}</Text>
         </Box>
         </Link>
       ))}

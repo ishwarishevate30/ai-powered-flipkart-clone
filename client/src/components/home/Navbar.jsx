@@ -8,6 +8,7 @@ const Component = styled(Box)`
 display : flex;
 margin : 55px 130px 0 130px;
 justify-content : space-between;
+
 `
 
 const Container = styled(Box)`
@@ -23,6 +24,8 @@ const Text = styled(Typography)`
 const Navbar = () =>
 {
     return  (
+        <Box style={{background:'#fff'}}>
+
         <   Component> 
                 {
                     navData.map((data,index)=>(
@@ -33,6 +36,7 @@ const Navbar = () =>
                     ))
                 }
             </Component>
+            </Box>
 
     )
 }

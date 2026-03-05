@@ -14,7 +14,7 @@ const Wrapper = styled(Box)(({ theme }) => ({
   display: "flex",
   alignItems: "center",
   marginLeft: "auto",
-  gap: 35,
+  gap: 55,
 
   // Drawer / Mobile View
   [theme.breakpoints.down("md")]: {
