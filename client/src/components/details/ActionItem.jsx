@@ -17,14 +17,17 @@ const ImageContainer = styled(Box)({
     padding: '15px 20px',
     border: '1px solid #f0f0f0',
     width: '90%',
+    maxWidth: '420px',
+    height: '420px',
     display: 'flex',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    alignItems: 'center'
 });
 
 const Image = styled('img')({
-    width: '100%',
+    width: 'auto',
     maxWidth: '100%',
-    height: 'auto',
+    maxHeight: '100%',
     objectFit: 'contain'
 });
 

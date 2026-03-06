@@ -19,6 +19,12 @@ const Component = styled(Box)`
 const Home = () =>
 {
      const { products } = useSelector(state => state.products);  
+    const sortedProducts = [...(products || [])].sort((a, b) => Number(a.id) - Number(b.id));
+
+    const firstSlideProducts = sortedProducts.slice(0, 6);
+    const secondSlideProducts = sortedProducts.slice(6, 12);
+    const thirdSlideProducts = sortedProducts.slice(12, 18);
+    const fourthSlideProducts = sortedProducts.slice(18, 24);
     
     const dispatch = useDispatch();
    
@@ -36,16 +42,12 @@ const Home = () =>
                 <Navbar/>
                 <Component>
                     <Banner/> 
-                    <MidSlide products={products} title="Deal of the Day" timer={true} />
+                    <MidSlide products={firstSlideProducts} title="Deal of the Day" timer={true} />
                     <MidSection/>
-                    <Slide products={products} title="Top Picks for You" timer={false} />
-                    <Slide products={products} title="Discounts for You" timer={false} />
-                    <Slide products={products} title="Suggested Items"timer={false} />
-                    <Slide products={products} title="Top Sellers"timer={false} />
-                    <Slide products={products} title="Recommended Items" timer={false} />
-                    <Slide products={products} title="Trending Offers" timer={false} />
-                     <Slide products={products} title="Top Deals on Accessories" timer={false} />
-
+                    <Slide products={secondSlideProducts} title="Top Picks for You" timer={false} />
+                    <Slide products={thirdSlideProducts} title="Discounts for You" timer={false} />
+                    <Slide products={fourthSlideProducts} title="Suggested Items"timer={false} />
+                  
                     
                 </Component>
             </>

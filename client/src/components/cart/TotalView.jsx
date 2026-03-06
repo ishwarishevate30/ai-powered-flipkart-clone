@@ -1,4 +1,4 @@
-import { Box, Typography, styled } from "@mui/material";
+import { Box, Divider, Typography, styled } from "@mui/material";
 import { useState, useEffect, useCallback } from "react"; 
 const Header = styled(Box)`
 
@@ -14,24 +14,29 @@ const Heading = styled(Typography)`
 const Container = styled(Box)`
     padding: 15px 24px;
     background: #fff;
-    & > p {
-        margin-bottom: 20px;
-        font-size: 14px;
-    }
-        & > h6 {
-        margin-bottom: 20px;
-    }
+  font-size: 14px;
     `;
+
+  const Row = styled(Box)`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    font-size: 14px;
+  `;
+
     const Price = styled(Box)`
-        float: right;
         font-size: 14px;
+    font-weight: 500;
     `
+
     const Discount = styled(Box)`
-       
+    margin-top: 16px;
         font-size: 14px;
         color: green;
         font-weight: 500;
     `
+
 const TotalAmount = styled(Typography)`
     font-size: 18px;
     font-weight: 500;
@@ -64,14 +69,28 @@ const TotalView = ({ cartItems }) => {
         </Heading>
       </Header>
       <Container>
-        <Typography>Price ({cartItems?.length}) </Typography>
-        <Price component="span">₹{price}</Price>
-        <Typography>Discount ({cartItems?.length})</Typography>
-        <Price component="span">₹{discount}</Price>
-        <Typography>Delivery Charges</Typography>
-        <Price component="span">₹40</Price>
-        <TotalAmount component="h6">Total Amount</TotalAmount>
-        <Price component="span">₹{price - discount + 40}</Price>
+        <Row>
+          <Typography>Price ({cartItems?.length})</Typography>
+          <Price component="span">₹{price}</Price>
+        </Row>
+
+        <Row>
+          <Typography>Discount ({cartItems?.length})</Typography>
+          <Price component="span">-₹{discount}</Price>
+        </Row>
+
+        <Row>
+          <Typography>Delivery Charges</Typography>
+          <Price component="span">₹40</Price>
+        </Row>
+
+        <Divider />
+
+        <Row sx={{ marginTop: 2, marginBottom: 0 }}>
+          <TotalAmount component="span">Total Amount</TotalAmount>
+          <TotalAmount component="span">₹{price - discount + 40}</TotalAmount>
+        </Row>
+
         <Discount>You will save ₹{discount} on this order</Discount>
       </Container>
     </Box>
