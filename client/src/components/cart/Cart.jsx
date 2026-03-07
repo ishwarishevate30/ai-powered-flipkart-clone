@@ -1,5 +1,6 @@
 import { useSelector } from 'react-redux';
 import { Box, Grid, Typography, styled, Button } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import CartItem from './CartItem';
 import TotalView from './TotalView';
 import EmptyCart from './EmptyCart';
@@ -41,6 +42,16 @@ const ButtonWrapper = styled(Box)`
 
 const Cart = () => {
     const { cartItems = [] } = useSelector(state => state.cart || {});
+    const navigate = useNavigate();
+
+    const placeOrder = () => {
+        navigate('/paytm', {
+            state: {
+                items: cartItems,
+                source: 'place-order'
+            }
+        });
+    };
 
     return (
         <>
@@ -60,7 +71,7 @@ const Cart = () => {
                         ))}
 
                         <ButtonWrapper>
-                            <Button variant="contained">
+                            <Button variant="contained" onClick={placeOrder}>
                                 Place Order
                             </Button>
                         </ButtonWrapper>

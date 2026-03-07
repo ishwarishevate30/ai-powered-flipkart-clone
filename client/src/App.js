@@ -7,6 +7,7 @@ import Home from './components/home/Home';
 import DataProvider from './context/DataProvider';
 import {BrowserRouter,Routes,Route} from 'react-router-dom';
 import DetailView from './components/details/DetailView';
+import PaytmGateway from './components/payment/PaytmGateway';
 import { Box } from '@mui/material';
 
 
@@ -20,6 +21,7 @@ function App() {
         <Route path='/' element={  <Home/> }/>
         <Route path='/product/:id' element={ <DetailView/> }/>
         <Route path='/cart' element={ <Cart/> }/>
+        <Route path='/paytm' element={ <PaytmGateway/> }/>
         </Routes>
 
       </Box>

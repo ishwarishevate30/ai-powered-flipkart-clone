@@ -54,13 +54,22 @@ const ActionItem = ({ product }) => {
         navigate('/cart'); // Redirect to cart page
     };
 
+    const buyNow = () => {
+        navigate('/paytm', {
+            state: {
+                items: [{ ...product, quantity: 1 }],
+                source: 'buy-now'
+            }
+        });
+    };
+
     return (
        <LeftContainer>
         <ImageContainer>
             <Image src={product.detailUrl} alt={product.title.longTitle}  />
         </ImageContainer>
         <StyledButton variant="contained" onClick={addItemToCart} style={{marginRight: 10, backgroundColor: '#ff9f00'}} ><Cart /> Add to Cart</StyledButton>
-        <StyledButton variant="contained" style={{backgroundColor: '#fb541b'}}><Flash /> Buy Now</StyledButton>
+        <StyledButton variant="contained" onClick={buyNow} style={{backgroundColor: '#fb541b'}}><Flash /> Buy Now</StyledButton>
        </LeftContainer>
     );
 };
