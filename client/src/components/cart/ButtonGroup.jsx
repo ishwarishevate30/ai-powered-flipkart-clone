@@ -1,5 +1,5 @@
 
-import { Box, Button, ButtonGroup,styled} from "@mui/material";    
+import { Button, ButtonGroup, styled } from "@mui/material";
 
 const Component = styled(ButtonGroup)`
     display: flex;
