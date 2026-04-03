@@ -9,7 +9,8 @@ const productSchema = new mongoose.Schema({
     quantity: Number,
     description: String,
     discount: String,
-    tagline: String
+    tagline: String,
+    reviews: [Object]
 });
 
 const products = mongoose.model('product', productSchema);

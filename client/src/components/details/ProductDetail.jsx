@@ -29,13 +29,17 @@ const ColumnText = styled(TableRow)`
 `;
 const ProductDetail = ({product}) => {
     const fassured = 'https://static-assets-web.flixcart.com/www/linchpin/fk-cp-zion/img/fa_62673a.png';
+    const reviewCount = product?.reviews?.length || 0;
+    const averageRating = reviewCount
+        ? (product.reviews.reduce((total, review) => total + (review.rating || 0), 0) / reviewCount).toFixed(1)
+        : '0.0';
     
     return (
         <>
         <Typography>{product.title.longTitle}</Typography>
                                     <Typography style={{marginTop:5,color: '#878787',fontSize:14  }}>
                                         <Box component="span" style={{display: 'inline-flex', alignItems: 'center'}}>
-                                            8 Ratings & 1 Reviews
+                                            {averageRating} Ratings & {reviewCount} Reviews
                                             <img src={fassured} alt="fassured" style={{width:77, marginLeft:20}} />
                                         </Box>
                                     </Typography>
@@ -92,9 +96,6 @@ const ProductDetail = ({product}) => {
                                             
                                      
 
-        
-        
-        
             </>
     );
 }   

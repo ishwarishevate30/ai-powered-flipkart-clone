@@ -65,7 +65,7 @@ const Header = () => {
     }
 
     const list = () => (
-       <Box style ={{width:200}} onClick={handleClose}>
+       <Box style ={{width:200}}>
         <List> 
         <ListItem button>
             <CustomButton/>

@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import LoginDialog from "../login/LoginDialog";
 import Profile from "./Profile";
 import { DataContext } from "../../context/DataProvider";
+import HelpAIDialog from "../support/HelpAIDialog";
 
 
 // ================= Wrapper =================
@@ -14,9 +15,13 @@ const Wrapper = styled(Box)(({ theme }) => ({
   display: "flex",
   alignItems: "center",
   marginLeft: "auto",
-  gap: 55,
+  gap: 30,
+  flexWrap: "nowrap",
 
   // Drawer / Mobile View
+  [theme.breakpoints.down("lg")]: {
+    gap: 20
+  },
   [theme.breakpoints.down("md")]: {
     flexDirection: "column",
     alignItems: "flex-start",
@@ -38,6 +43,7 @@ const LoginButton = styled(Button)(({ theme }) => ({
   padding: "5px 40px",
   height: 32,
   boxShadow: "none",
+  whiteSpace: "nowrap",
 
   "&:hover": {
     background: "#ffffff"
@@ -58,9 +64,24 @@ const CartContainer = styled(Link)(({ theme }) => ({
   textDecoration: "none",
   color: "inherit",
   gap: 8,
+  whiteSpace: "nowrap",
 
   [theme.breakpoints.down("md")]: {
     width: "100%"
+  }
+}));
+
+const NavItem = styled(Typography)(({ theme }) => ({
+  fontSize: 16,
+  cursor: "pointer",
+  whiteSpace: "nowrap",
+
+  [theme.breakpoints.down("lg")]: {
+    fontSize: 15
+  },
+  [theme.breakpoints.down("md")]: {
+    width: "100%",
+    fontSize: 16
   }
 }));
 
@@ -89,24 +110,17 @@ const CustomButton = () => {
       )}
 
       {/* Become Seller */}
-      <Typography
-        sx={{
-          fontSize: 16,
-          cursor: "pointer"
-        }}
-      >
+      <NavItem>
         Become a Seller
-      </Typography>
+      </NavItem>
 
       {/* More */}
-      <Typography
-        sx={{
-          fontSize: 16,
-          cursor: "pointer"
-        }}
-      >
+      <NavItem>
         More
-      </Typography>
+      </NavItem>
+
+      {/* FAQs */}
+      <HelpAIDialog />
 
       {/* Cart */}
       <CartContainer to="/cart">

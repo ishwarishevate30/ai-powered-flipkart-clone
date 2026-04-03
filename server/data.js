@@ -1,4 +1,4 @@
-export const products = [
+const baseProducts = [
     { 
         id: 1,
         url: 'https://rukminim1.flixcart.com/image/150/150/kapoo7k0/electric-kettle/p/6/s/pigeon-favourite-original-imafs7xhj5uwgrh4.jpeg?q=70', 
@@ -474,6 +474,129 @@ export const products = [
                         
 
         ];
+
+const insightKeywords = {
+    fit: ['fit', 'size', 'comfortable', 'lightweight', 'wear', 'strap', 'compact', 'portable'],
+    quality: ['quality', 'build', 'durable', 'material', 'sturdy', 'finish', 'premium'],
+    value: ['value', 'worth', 'price', 'budget', 'deal', 'expensive']
+};
+
+const hasKeyword = (text = '', keywords = []) =>
+    keywords.some((keyword) => text.toLowerCase().includes(keyword));
+
+const ratingPatterns = [
+    [5, 4, 3, 4, 2],
+    [4, 5, 2, 4, 5],
+    [5, 3, 4, 2, 4],
+    [3, 4, 5, 4, 1],
+    [4, 3, 4, 5, 3],
+    [5, 4, 2, 3, 4]
+];
+
+const reviewUsers = [
+    ['Aarav', 'Neha', 'Rohan', 'Isha', 'Guest-User'],
+    ['Kiran', 'Meera', 'Sanjay', 'Pooja', 'Guest-User'],
+    ['Vihaan', 'Anjali', 'Kabir', 'Tanya', 'Guest-User'],
+    ['Arjun', 'Nisha', 'Rahul', 'Sneha', 'Guest-User']
+];
+
+const spamComments = [
+    'Best product best product best product. Must buy.',
+    'Amazing deal must buy must buy. Super.',
+    'Very very good product, best in market, must buy.'
+];
+
+const positiveTemplates = [
+    (product) => `Great build and neat finish. ${product.title.shortTitle} feels premium for the price.`,
+    (product) => `Solid quality so far. I use this ${product.title.shortTitle.toLowerCase()} daily and it has been reliable.`,
+    (product) => `Design looks clean and performance is smooth. Better than what I expected at this budget.`
+];
+
+const valueTemplates = [
+    (product, discount, baseComment) => `Value for money at ${discount}. ${baseComment.slice(0, 70)}...`,
+    (product, discount) => `Good deal during sale (${discount}). Features are practical and easy to use.`,
+    (product) => `Affordable pick. Not perfect, but definitely worth considering in this category.`
+];
+
+const criticalTemplates = [
+    () => 'Product is decent, but packaging and first impression can improve.',
+    () => 'Works fine after setup, but the quality control could be better.',
+    () => 'Average experience. Delivery was fine, but finishing details need improvement.'
+];
+
+const practicalTemplates = [
+    () => 'Easy to use in daily routine, comfortable for long usage, and fair for this price range.',
+    () => 'Practical for regular use. Setup is simple and performance is stable.',
+    () => 'User friendly and does the basic job well. Good option for everyday usage.'
+];
+
+const pickTemplate = (templates, index) => templates[index % templates.length];
+
+const buildSeedReviews = (product) => {
+    const baseComment = product.description || product.title.longTitle;
+    const discount = product.price.discount;
+    const ratingSet = ratingPatterns[(product.id - 1) % ratingPatterns.length];
+    const users = reviewUsers[(product.id - 1) % reviewUsers.length];
+    const dateBase = (product.id % 18) + 1;
+    const shift = product.id - 1;
+
+    const reviews = [
+        {
+            id: `${product.id}-r1`,
+            user: users[0],
+            rating: ratingSet[0],
+            verified: true,
+            comment: pickTemplate(positiveTemplates, shift)(product),
+            createdAt: `2026-01-${String(dateBase).padStart(2, '0')}`
+        },
+        {
+            id: `${product.id}-r2`,
+            user: users[1],
+            rating: ratingSet[1],
+            verified: product.id % 3 !== 0,
+            comment: pickTemplate(valueTemplates, shift + 1)(product, discount, baseComment),
+            createdAt: `2026-01-${String(dateBase + 3).padStart(2, '0')}`
+        },
+        {
+            id: `${product.id}-r3`,
+            user: users[2],
+            rating: ratingSet[2],
+            verified: false,
+            comment: pickTemplate(criticalTemplates, shift + 2)(),
+            createdAt: `2026-01-${String(dateBase + 6).padStart(2, '0')}`
+        },
+        {
+            id: `${product.id}-r4`,
+            user: users[3],
+            rating: ratingSet[3],
+            verified: product.id % 2 === 0,
+            comment: pickTemplate(practicalTemplates, shift + 3)(),
+            createdAt: `2026-01-${String(dateBase + 8).padStart(2, '0')}`
+        },
+        {
+            id: `${product.id}-r5`,
+            user: users[4],
+            rating: ratingSet[4],
+            verified: false,
+            comment: spamComments[(product.id - 1) % spamComments.length],
+            createdAt: `2026-01-${String(dateBase + 9).padStart(2, '0')}`
+        }
+    ];
+
+    return reviews.map((review) => ({
+        ...review,
+        tags: {
+            fit: hasKeyword(review.comment, insightKeywords.fit),
+            quality: hasKeyword(review.comment, insightKeywords.quality),
+            value: hasKeyword(review.comment, insightKeywords.value)
+        }
+    }));
+};
+
+export const products = baseProducts.map((product) => ({
+    ...product,
+    reviews: buildSeedReviews(product)
+}));
 
 
 

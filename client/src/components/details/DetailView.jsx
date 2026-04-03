@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { getProductDetails } from "../../redux/actions/productActions";
 import ActionItem from "./ActionItem";
 import ProductDetail from "./ProductDetail";
+import ReviewIntelligence from "./ReviewIntelligence";
 
 import { Box, Typography, Grid, styled } from "@mui/material";
 
@@ -29,6 +30,12 @@ const RightContainer = styled(Grid)`
   }
 `;
 
+const ReviewSection = styled(Box)`
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 20px 20px;
+`;
+
 const DetailView = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
@@ -48,16 +55,21 @@ const DetailView = () => {
       ) : (
         product &&
         Object.keys(product).length > 0 && (
-          <Container container>
-            <Grid item lg={4} md={4} sm={12} xs={12}>
-              <ActionItem product={product} />
-            </Grid>
+          <>
+            <Container container>
+              <Grid item lg={4} md={4} sm={12} xs={12}>
+                <ActionItem product={product} />
+              </Grid>
 
-            {/* ✅ FIXED HERE */}
-            <RightContainer item lg={8} md={8} sm={12} xs={12}>
-              <ProductDetail product={product} />
-            </RightContainer>
-          </Container>
+              <RightContainer item lg={8} md={8} sm={12} xs={12}>
+                <ProductDetail product={product} />
+              </RightContainer>
+            </Container>
+
+            <ReviewSection>
+              <ReviewIntelligence productId={product.id} />
+            </ReviewSection>
+          </>
         )
       )}
     </Component>

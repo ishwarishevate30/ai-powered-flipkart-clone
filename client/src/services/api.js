@@ -19,3 +19,21 @@ export const authenticateLogin = async (data) => {
     console.log('Error while calling login API', error.response || error.message || error);
   }
 };
+
+export const fetchReviewIntelligence = async (productId) => {
+  try {
+    return await axios.get(`${URL}/product/${productId}/review-intelligence`);
+  } catch (error) {
+    console.log('Error while calling review intelligence API', error.response || error.message || error);
+    throw error;
+  }
+};
+
+export const fetchFAQs = async (message, context = {}) => {
+  try {
+    return await axios.post(`${URL}/faqs`, { message, context });
+  } catch (error) {
+    console.log('Error while calling FAQs API', error.response || error.message || error);
+    throw error;
+  }
+};

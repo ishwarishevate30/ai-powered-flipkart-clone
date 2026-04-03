@@ -75,11 +75,13 @@ const SummaryLine = styled(Box)({
     marginBottom: 12
 });
 
+const EMPTY_ITEMS = [];
+
 const PaytmGateway = () => {
     const navigate = useNavigate();
     const location = useLocation();
 
-    const items = location.state?.items || [];
+    const items = Array.isArray(location.state?.items) ? location.state.items : EMPTY_ITEMS;
     const source = location.state?.source || 'checkout';
 
     const [method, setMethod] = useState('upi');
