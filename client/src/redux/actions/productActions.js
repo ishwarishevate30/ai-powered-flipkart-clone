@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { GET_Product_SUCCESS, GET_Product_FAILURE } from '../constants/productConstant';
 import { GET_Product_DETAILS_REQUEST, GET_Product_DETAILS_SUCCESS, GET_Product_DETAILS_FAILURE } from '../constants/productConstant';
-const URL = 'http://localhost:8000'; // Updated the base URL to match the server configuration
+const URL = 'https://ai-powered-flipkart-clone.onrender.com'; // Updated the base URL to match the server configuration
 
 export const getProducts = () => async (dispatch) => {
     try {
