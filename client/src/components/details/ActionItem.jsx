@@ -49,9 +49,9 @@ const ActionItem = ({ product }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const addItemToCart = () => {
-        dispatch(addToCart(product.id, 1));
-        navigate('/cart'); // Redirect to cart page
+    const addItemToCart = async () => {
+        await dispatch(addToCart(product.id, 1));
+        navigate('/cart'); // Redirect to cart page after item is added
     };
 
     const buyNow = () => {
