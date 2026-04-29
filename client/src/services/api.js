@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-// ✅ Your deployed backend URL
-const URL = "https://ai-powered-flipkart-clone.onrender.com";
+// Use env var for API base URL with local fallback
+const URL = process.env.REACT_APP_API_URL || 'http://localhost:8000';
 
 export const authenticateSignup = async (data) => {
   try {
@@ -23,7 +23,7 @@ export const authenticateLogin = async (data) => {
 
 export const fetchReviewIntelligence = async (productId) => {
   try {
-    return await axios.get(`${URL}/product/${productId}/review-intelligence`);
+    return await axios.get(`${URL}/api/product/${productId}/review-intelligence`);
   } catch (error) {
     console.log('Error while calling review intelligence API', error.response || error.message || error);
     throw error;
@@ -32,7 +32,7 @@ export const fetchReviewIntelligence = async (productId) => {
 
 export const fetchFAQs = async (message, context = {}) => {
   try {
-    return await axios.post(`${URL}/faqs`, { message, context });
+    return await axios.post(`${URL}/api/faqs`, { message, context });
   } catch (error) {
     console.log('Error while calling FAQs API', error.response || error.message || error);
     throw error;
