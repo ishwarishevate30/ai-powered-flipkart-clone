@@ -23,7 +23,14 @@ const Banner = () => (
         key={index}
         src={url}
         alt={`banner-${index}`}
-        style={{ width: "100%", height: "250px", objectFit: "cover" }}
+        style={{ 
+          width: "100%", 
+          height: "auto",
+          maxHeight: "400px",
+          minHeight: "120px",
+          objectFit: "cover",
+          aspectRatio: "16 / 6"
+        }}
       />
     ))}
   </Carousel>

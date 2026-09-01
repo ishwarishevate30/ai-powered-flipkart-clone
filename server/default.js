@@ -3,13 +3,11 @@ import { products } from './data.js';
 
 const DefaultData = async () => {
   try {
-    const existingCount = await Product.countDocuments();
+    // Clear existing products
+    await Product.deleteMany({});
+    console.log('Cleared existing products from database');
 
-    if (existingCount > 0) {
-      console.log('Default data already exists, skipping seed');
-      return;
-    }
-
+    // Insert new products
     await Product.insertMany(products); // Insert original data
     console.log('Default data inserted successfully');
   } catch (error) {

@@ -4,20 +4,33 @@ import Slide from './Slide';
 
 const Component = styled(Box)`
     display: flex;
-   
+    gap: 10px;
+    
+    @media (max-width: 768px) {
+      flex-direction: column;
+    }
 `; 
 
 const LeftComponent = styled(Box)`
     width: 83%;
+    
+    @media (max-width: 768px) {
+      width: 100%;
+    }
 `;
 
 const RightComponent = styled(Box)`
     background: #FFFFFF;
     padding: 5px;
     margin-top: 10px;
-    margin-left: 10px;
     width: 17%;
     text-align: center;
+    
+    @media (max-width: 768px) {
+      width: 100%;
+      margin-top: 0;
+      height: 250px;
+    }
 `;
 
 const Image = styled('img')({
