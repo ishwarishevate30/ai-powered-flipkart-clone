@@ -9,7 +9,7 @@ dotenv.config();
 
 const app = express();
 
-const PORT = 8000;
+const PORT = process.env.PORT || 8000;
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -20,7 +20,7 @@ const startServer = async () => {
         await Connection();
 
         app.listen(PORT, () => {
-            console.log("Server is running on port 8000");
+            console.log(`Server is running on port ${PORT}`);
             DefaultData();
         });
     } catch (error) {
@@ -31,4 +31,3 @@ const startServer = async () => {
 
 startServer();
  
-
