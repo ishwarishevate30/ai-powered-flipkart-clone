@@ -6,18 +6,20 @@ const URL = process.env.REACT_APP_API_URL || 'http://localhost:8000';
 export const authenticateSignup = async (data) => {
   try {
     console.log('Payload being sent to /signup:', data);
-    return await axios.post(`${URL}/signup`, data);
+    return await axios.post(`${URL}/api/signup`, data);
   } catch (error) {
     console.log('Error while calling signup API', error.response || error.message || error);
+    throw error;
   }
 };
 
 export const authenticateLogin = async (data) => {
   try {
     console.log('Payload being sent to /login:', data);
-    return await axios.post(`${URL}/login`, data);
+    return await axios.post(`${URL}/api/login`, data);
   } catch (error) {
     console.log('Error while calling login API', error.response || error.message || error);
+    throw error;
   }
 };
 

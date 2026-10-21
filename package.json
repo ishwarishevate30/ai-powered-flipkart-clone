@@ -1,4 +1,9 @@
 {
+  "scripts": {
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "npm --prefix server start",
+    "client": "npm --prefix client start"
+  },
   "dependencies": {
     "@google/generative-ai": "^0.24.1",
     "@redux-devtools/extension": "^3.3.0",
@@ -6,5 +11,8 @@
     "react-dom": "^18.2.0",
     "react-redux": "^9.2.0",
     "redux-persist": "^6.0.0"
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.6"
   }
 }
